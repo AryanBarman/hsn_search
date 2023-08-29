@@ -1,0 +1,45 @@
+.flexbox-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 40vh;
+  padding-top: 10px;
+  padding-bottom: 10px;  
+  background-image: linear-gradient(315deg, #7ed6df 0%, #000000 74%);
+  /* background-image: url('../../public/images/parliament.jpg');
+  background-size: 100%;
+  background-position:60% 25%;
+  background-repeat: no-repeat;
+  position: sticky; */
+}
+
+.flexbox-header h2 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #cfd6e6;
+  margin: 0;
+}
+.flexbox-header h2 span {
+  color: linear-gradient(315deg, #e7eff9 0%, #cfd6e6 74%);
+}
+
+.flexbox-header h1 {
+  font-size: 36px;
+  margin: 0;
+  color: aliceblue;
+  text-shadow: 50cap;
+  text-decoration: solid;
+  animation: fadeInUp 1s ease-in-out;
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
