@@ -1,48 +1,68 @@
 'use client'
+import React, { useState, useEffect } from 'react';
 import Header from './Header';
 import DataTableFromServer from './DataTableFromServer';
-import {useState, useEffect} from 'react'
 import { useAppContext } from './contexts/AppContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Spinner from 'react-bootstrap/Spinner';
-const Api = 'http://localhost:3500/data';
+import Image from 'next/image';
+
+const Api = '/hsn.json';
+
 export default function Home() {
-  const {tableData,setTableData,search,setSearch}=useAppContext();
-  const [loading, setLoading]=useState(true);
-  const fetchData = async (url) => {
-       setLoading(true);
+  const { tableData, setTableData, search } = useAppContext();
+  const [loading, setLoading] = useState(true);
+
+  const fetchData = async () => {
+    setLoading(true);
+
     try {
-      const res = await fetch(url);
-      const data = await res.json();
-      if (data.length > 0) {
-        setTableData(data.filter(
-              item =>
-                item["Description_of_Goods"].toLowerCase().includes(search.toLowerCase()) ||
-                item["Chapter_Heading_Sub_heading_Tariffitem"].toLowerCase().includes(search.toLowerCase())
-            ));
-            setLoading(false);
-        console.log("fetch\n");
+      const response = await fetch(Api, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch data');
+      }
+
+      const data = await response.json();
+      const data2=data.data;
+      if (data2.length > 0) {
+        setTableData(
+          data2.filter(
+            item =>
+              item["Description_of_Goods"].toLowerCase().includes(search.toLowerCase()) ||
+              item["Chapter_Heading_Sub_heading_Tariffitem"].toLowerCase().includes(search.toLowerCase())
+          )
+         );
       }
     } catch (error) {
-      console.error(error);
+      console.error('Error fetching data:', error);
+    } finally {
+      setLoading(false);
     }
   };
-  
+
   useEffect(() => {
-    fetchData(Api);
+    fetchData();
   }, [search]);
- 
 
   return (
-     <main>
+    <main>
       <Header/>
       {loading ? (
-        <div className='loader'> <Spinner animation="border" role="status" variant="danger">
-        <span className="visually-hidden">Loading...</span>
-      </Spinner></div>
+        <div className='loader' position="absolute" > 
+          <Spinner animation="border" role="status" variant="danger">
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+          <Image src="/3dMan2.jpg" alt='this is man' height="500" width="400"/>
+        </div>
       ) : (
         <DataTableFromServer />
       )}
     </main>
-  )
+  );
 }

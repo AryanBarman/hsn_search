@@ -9,8 +9,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { useAppContext } from './contexts/AppContext';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import throttle  from 'lodash.throttle';
-import debounce from 'lodash.debounce';
 
 function NavigationBar() {
   const { search, setSearch } = useAppContext();

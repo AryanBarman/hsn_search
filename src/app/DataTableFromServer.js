@@ -1,19 +1,11 @@
 'use client'
 import './DataTableFromServer.css'; 
-import { useMemo } from 'react';
 import Image from "next/image";
 import { useAppContext } from './contexts/AppContext';
 
 const DataTableFromServer = () => {
   const { tableData, search } = useAppContext();
-  // const filteredTableData = useMemo(() => {
-  //   return tableData.filter(
-  //     item =>
-  //       item["Description_of_Goods"].toLowerCase().includes(search.toLowerCase()) ||
-  //       item["Chapter_Heading_Sub_heading_Tariffitem"].toLowerCase().includes(search.toLowerCase())
-  //   );
-  // }, [tableData, search]);
-          
+  
   return (
     <div className='total border rounded shadow mt-4 mr-3 ml-3 '>
       <table className="data-table">
@@ -46,7 +38,7 @@ const DataTableFromServer = () => {
            : (
             <tr>
               <td colSpan={8} style={{paddingleft:"30vw"}}>
-                   <div className='imageHai'>
+                <div className='imageHai'>
                           <h2 >Data Not Found</h2>
                    <Image src="/Data.png" alt="image not found" width="500" height="500" 
                    />
